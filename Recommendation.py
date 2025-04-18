@@ -3,7 +3,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 
-df = pd.read_csv("Datasets/Training.csv")
+df = pd.read_csv(r"C:\Users\LENOVO\OneDrive\Desktop\AI doctor\Datasets\Training.csv")
 
 # df.head()
 # print(df.shape)
@@ -24,7 +24,7 @@ Y= le.transform(y)
 print(Y)       #string to integer
 
 #Training top models
-from sklearn import make_classification
+# from sklearn import make_classification
 from sklearn.svm import SVC
 from sklearn.ensemble import GradientBoostingClassifier, RandomForestClassifier
 from sklearn.neighbors import KNeighborsClassifier
@@ -42,10 +42,15 @@ models={
 }
 for model_name, model in models.items():
     #train model
-    model.fir(X_train,y_train)
+    model.fit(X_train,y_train)
 
     #test model
     predictions= model.predict(X_test)
+    accuracy= accuracy_score(y_test,predictions)
+    cm= confusion_matrix(y_test,predictions)
+    print(f"{model_name} accuracy:{accuracy}")
+    print(f"{model_name} confusion matrix:\n{cm}")
+    print(np.array2string(cm,separator=','))
 
 
 
